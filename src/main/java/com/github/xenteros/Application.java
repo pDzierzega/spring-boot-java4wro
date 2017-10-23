@@ -2,9 +2,7 @@ package com.github.xenteros;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @SpringBootApplication
@@ -18,5 +16,20 @@ public class Application {
                     value = "/hello-world")
     public String helloWorld() {
         return "Hello World";
+    }
+
+    @GetMapping("/hello-name/{name}")
+    public String helloName(@PathVariable String name) {
+        return "Hello " + name;
+    }
+
+    @GetMapping("/hello-param")
+    public String helloParam(@RequestParam(name = "name", required = false) String name) {
+        return "Hello " + name + " via param";
+    }
+
+    @PostMapping("/hello-body")
+    public String helloBody(@RequestBody String name) {
+        return "Hello " + name;
     }
 }
