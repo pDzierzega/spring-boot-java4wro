@@ -28,7 +28,7 @@ public class CurrencyExchangeController {
 
         //pobieranie kursu euro do pln
         FixerResponseDto response =
-restTemplate.getForEntity("http://api.fixer.io/latest?symbols=PLN", FixerResponseDto.class).getBody();
+                restTemplate.getForEntity("http://api.fixer.io/latest?symbols=", FixerResponseDto.class).getBody();
 
         BigDecimal toValue = fromValue.multiply(new BigDecimal(response.getRates().get("PLN"))); //podstawiamy
 
