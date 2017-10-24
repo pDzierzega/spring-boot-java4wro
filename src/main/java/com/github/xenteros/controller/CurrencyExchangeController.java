@@ -2,11 +2,10 @@ package com.github.xenteros.controller;
 
 import com.github.xenteros.dto.CurrencyExchangeResultDto;
 import com.github.xenteros.dto.FixerResponseDto;
+import com.github.xenteros.model.CurrencyExchangeEntry;
+import com.github.xenteros.repositories.CurrencyExchangeEntryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
@@ -16,25 +15,35 @@ import java.math.BigDecimal;
 public class CurrencyExchangeController {
 
     @Autowired
+    private CurrencyExchangeEntryRepository currencyExchangeEntryRepository;
+
+    @Autowired
     private RestTemplate restTemplate;
 
-    @GetMapping("eur-to-pln/{eur}")
-    public CurrencyExchangeResultDto eurToPln(@PathVariable String eur) {
+    @PutMapping
+    public CurrencyExchangeEntry addCurrencyExchangeEntry(@RequestBody CurrencyExchangeEntry currencyExchangeEntry) {
+        return currencyExchangeEntryRepository.save(currencyExchangeEntry);
+    }
+
+    @GetMapping("/cur-to-cur/{cur1}/{amount}/{cur2}")
+    public CurrencyExchangeResultDto exchangeCurrencies(@PathVariable String cur1, @PathVariable String amount, @PathVariable String cur2){
+
 
         CurrencyExchangeResultDto result = new CurrencyExchangeResultDto();
-        result.setFrom("EUR");
-        result.setTo("PLN");
-        BigDecimal fromValue = new BigDecimal(eur);
-
-        //pobieranie kursu euro do pln
-        FixerResponseDto response =
-                restTemplate.getForEntity("http://api.fixer.io/latest?symbols=", FixerResponseDto.class).getBody();
-
-        BigDecimal toValue = fromValue.multiply(new BigDecimal(response.getRates().get("PLN"))); //podstawiamy
-
+        result.setFrom(cur1);
+        result.setTo(cur2);
+        BigDecimal fromValue = new BigDecimal(amount);
         result.setFromValue(fromValue);
-        result.setResult(toValue);
+        FixerResponseDto response = restTemplate.getForEntity("http://api.fixer.io/latest?symbols="+cur1+","+cur2, FixerResponseDto.class).getBody();
 
+        BigDecimal divider = new BigDecimal(response.getRates().get(cur2)).divide(new BigDecimal(response.getRates().get(cur1)),5);
+
+        BigDecimal toValue = fromValue.multiply(divider);
+        result.setResult(toValue);
         return result;
+
+
+
+
     }
 }
