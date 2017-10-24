@@ -25,7 +25,7 @@ public class CurrencyExchangeController {
         return currencyExchangeEntryRepository.save(currencyExchangeEntry);
     }
 
-    @GetMapping("/cur-to-cur/{cur1}/{amount}/{cur2}")
+    @GetMapping("/{cur1}/{amount}/{cur2}")
     public CurrencyExchangeResultDto exchangeCurrencies(@PathVariable String cur1, @PathVariable String amount, @PathVariable String cur2){
 
 
