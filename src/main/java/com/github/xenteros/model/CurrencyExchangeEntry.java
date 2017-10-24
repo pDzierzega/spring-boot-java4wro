@@ -1,7 +1,9 @@
 package com.github.xenteros.model;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.math.BigDecimal;
 
 @Entity
@@ -11,12 +13,11 @@ public class CurrencyExchangeEntry {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
-    @Column(name = "curremcy_from", nullable = false)
     private String currencyFrom;
     private String currencyTo;
     private BigDecimal valueFrom;
     private BigDecimal valueTo;
+    private BigDecimal exchangeRate;
 
     public Long getId() {
         return id;
@@ -56,5 +57,13 @@ public class CurrencyExchangeEntry {
 
     public void setValueTo(BigDecimal valueTo) {
         this.valueTo = valueTo;
+    }
+
+    public BigDecimal getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(BigDecimal exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 }

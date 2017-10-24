@@ -28,7 +28,6 @@ public class CurrencyExchangeController {
     @GetMapping("/{cur1}/{amount}/{cur2}")
     public CurrencyExchangeResultDto exchangeCurrencies(@PathVariable String cur1, @PathVariable String amount, @PathVariable String cur2){
 
-
         CurrencyExchangeResultDto result = new CurrencyExchangeResultDto();
         result.setFrom(cur1);
         result.setTo(cur2);
