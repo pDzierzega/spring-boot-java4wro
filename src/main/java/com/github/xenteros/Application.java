@@ -1,5 +1,8 @@
 package com.github.xenteros;
 
+import com.github.xenteros.service.CurrencyExchangeService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +19,10 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @SpringBootApplication
 @EnableJpaRepositories
 @EnableSwagger2
-public class Application {
+public class Application implements CommandLineRunner{
+
+    @Autowired
+    private CurrencyExchangeService currencyExchangeService;
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -46,5 +52,22 @@ public class Application {
                 .licenseUrl("https://github.com/IBM-Bluemix/news-aggregator/blob/master/LICENSE")
                 .version("2.0")
                 .build();
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+
+        currencyExchangeService.getExchangeRate("USD", "PLN", "0.5");
+        currencyExchangeService.getExchangeRate("HUF","GBP", "0.75");
+        currencyExchangeService.getExchangeRate("PLN","CNY", "0.33");
+//        currencyExchangeService.getExchangeRate("HUF","JPN", "1.5");
+//        currencyExchangeService.getExchangeRate("AUD","CNY", "0.75");
+//        currencyExchangeService.getExchangeRate("HUF","GBP", "1");
+//        currencyExchangeService.getExchangeRate("BTN","GBP", "0.75");
+//        currencyExchangeService.getExchangeRate("HUF","ZWD", "0.75");
+//        currencyExchangeService.getExchangeRate("HUF","ILS", "0.75");
+//        currencyExchangeService.getExchangeRate("LYD","KES", "2");
+//        currencyExchangeService.getExchangeRate("MYR","GBP", "0.75");
+
     }
 }
