@@ -60,14 +60,5 @@ public class Application implements CommandLineRunner{
         currencyExchangeService.getExchangeRate("USD", "PLN", "0.5");
         currencyExchangeService.getExchangeRate("HUF","GBP", "0.75");
         currencyExchangeService.getExchangeRate("PLN","CNY", "0.33");
-//        currencyExchangeService.getExchangeRate("HUF","JPN", "1.5");
-//        currencyExchangeService.getExchangeRate("AUD","CNY", "0.75");
-//        currencyExchangeService.getExchangeRate("HUF","GBP", "1");
-//        currencyExchangeService.getExchangeRate("BTN","GBP", "0.75");
-//        currencyExchangeService.getExchangeRate("HUF","ZWD", "0.75");
-//        currencyExchangeService.getExchangeRate("HUF","ILS", "0.75");
-//        currencyExchangeService.getExchangeRate("LYD","KES", "2");
-//        currencyExchangeService.getExchangeRate("MYR","GBP", "0.75");
-
     }
 }
