@@ -1,9 +1,6 @@
 package com.github.xenteros.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -16,6 +13,17 @@ public class WordEntry {
     private String word;
 
     private LocalDateTime dateTime;
+
+    @ManyToOne
+    private User author;
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
 
     public Long getId() {
         return id;
