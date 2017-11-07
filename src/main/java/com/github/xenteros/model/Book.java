@@ -3,7 +3,7 @@ package com.github.xenteros.model;
 import javax.persistence.*;
 
 @Entity
-public class Book {
+public class Book extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

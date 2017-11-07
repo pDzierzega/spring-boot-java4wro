@@ -1,7 +1,9 @@
 package com.github.xenteros;
 
+import com.github.xenteros.model.User;
 import com.github.xenteros.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
@@ -23,7 +25,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EntityScan(
         basePackageClasses = {Application.class, Jsr310JpaConverters.class}
 )
-public class Application {
+public class Application implements CommandLineRunner {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -58,4 +60,11 @@ public class Application {
     }
 
 
+    @Override
+    public void run(String... args) throws Exception {
+        User user = new User();
+        user.setUsername("admin");
+        user.setPassword(passwordEncoder.encode("pass"));
+        userRepository.save(user);
+    }
 }
