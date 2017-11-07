@@ -3,6 +3,7 @@ package com.github.xenteros.service.impl;
 
 import com.github.xenteros.dto.BookDTO;
 import com.github.xenteros.dto.NewBookDTO;
+import com.github.xenteros.exception.AuthorNotFoundException;
 import com.github.xenteros.mapper.BookMapper;
 import com.github.xenteros.model.Author;
 import com.github.xenteros.model.Book;
@@ -35,7 +36,7 @@ public class BookSeriviceImpl implements BookService {
     public BookDTO addBook(NewBookDTO newBookDTO) {
         Author author = authorRepository.findOneByUuid(newBookDTO.getAuthorUuid());
         if (author == null) {
-            throw new RuntimeException();
+            throw new AuthorNotFoundException(newBookDTO.getAuthorUuid());
         }
         Book book = new Book();
         book.setTitle(newBookDTO.getTitle());
