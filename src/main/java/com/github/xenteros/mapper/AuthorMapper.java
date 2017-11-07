@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AuthorMapper {
 
-
     AuthorNoBooksDTO toAuthorNoBooksDTO(Author author);
     List<AuthorNoBooksDTO> toAuthorNoBooksDTO(Collection<Author> authors);
 }

@@ -6,6 +6,16 @@ public class AuthorDTO {
 
     private String firstName;
     private String lastName;
+    private String uuid;
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
+    }
+
     private List<BookDTO> books;
 
     public String getFirstName() {
