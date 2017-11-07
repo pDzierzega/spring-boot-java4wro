@@ -1,16 +1,11 @@
 package com.github.xenteros;
 
-import com.github.xenteros.model.User;
-import com.github.xenteros.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -25,13 +20,7 @@ import static springfox.documentation.builders.PathSelectors.regex;
 @EntityScan(
         basePackageClasses = {Application.class, Jsr310JpaConverters.class}
 )
-public class Application implements CommandLineRunner {
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private UserRepository userRepository;
+public class Application {
 
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
@@ -59,12 +48,4 @@ public class Application implements CommandLineRunner {
                 .build();
     }
 
-
-    @Override
-    public void run(String... args) throws Exception {
-        User user = new User();
-        user.setUsername("admin");
-        user.setPassword(passwordEncoder.encode("pass"));
-        userRepository.save(user);
-    }
 }
