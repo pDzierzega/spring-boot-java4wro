@@ -1,6 +1,7 @@
 package com.github.xenteros.controller;
 
 import com.github.xenteros.dto.BookDTO;
+import com.github.xenteros.dto.NewBookAndAuthorDTO;
 import com.github.xenteros.dto.NewBookDTO;
 import com.github.xenteros.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,4 +26,8 @@ public class BookController {
         return bookService.addBook(newBookDTO);
     }
 
+    @PostMapping("/with-author")
+    public BookDTO addAuthorAndBook(@RequestBody NewBookAndAuthorDTO newBookAndAuthorDTO){
+        return bookService.addBook(newBookAndAuthorDTO);
+    }
 }

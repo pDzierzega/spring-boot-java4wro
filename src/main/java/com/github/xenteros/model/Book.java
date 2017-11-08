@@ -10,7 +10,7 @@ public class Book extends BaseEntity {
     private Long id;
 
     private String title;
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST})
     private Author author;
 
     public Long getId() {

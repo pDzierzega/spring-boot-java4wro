@@ -2,6 +2,7 @@ package com.github.xenteros.service.impl;
 
 
 import com.github.xenteros.dto.BookDTO;
+import com.github.xenteros.dto.NewBookAndAuthorDTO;
 import com.github.xenteros.dto.NewBookDTO;
 import com.github.xenteros.exception.AuthorNotFoundException;
 import com.github.xenteros.mapper.BookMapper;
@@ -44,6 +45,19 @@ public class BookSeriviceImpl implements BookService {
 
         book = bookRepository.save(book);
         return bookMapper.toBookDTO(book);
+    }
+
+    @Override
+    public BookDTO addBook(NewBookAndAuthorDTO newBookAndAuthorDTO){
+        Author author = new Author();
+        author.setFirstName(newBookAndAuthorDTO.getFirstName());
+        author.setLastName(newBookAndAuthorDTO.getLastName());
+
+        Book book = new Book();
+        book.setTitle(newBookAndAuthorDTO.getTitle());
+        book.setAuthor(author);
+
+        return bookMapper.toBookDTO(bookRepository.save(book));
     }
 
 }
