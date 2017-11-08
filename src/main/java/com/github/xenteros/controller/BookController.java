@@ -19,6 +19,7 @@ public class BookController {
     public List<BookDTO> getBooks() {
         return bookService.getBooks();
     }
+
     @PostMapping
     BookDTO addBook (@RequestBody NewBookDTO newBookDTO){
         return bookService.addBook(newBookDTO);

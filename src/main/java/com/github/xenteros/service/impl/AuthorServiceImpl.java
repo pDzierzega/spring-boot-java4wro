@@ -1,7 +1,10 @@
 package com.github.xenteros.service.impl;
 
+import com.github.xenteros.dto.AuthorDTO;
 import com.github.xenteros.dto.AuthorNoBooksDTO;
+import com.github.xenteros.exception.AuthorNotFoundException;
 import com.github.xenteros.mapper.AuthorMapper;
+import com.github.xenteros.mapper.AuthorNoBooksMapper;
 import com.github.xenteros.model.Author;
 import com.github.xenteros.repositories.AuthorRepository;
 import com.github.xenteros.service.AuthorService;
@@ -18,9 +21,12 @@ public class AuthorServiceImpl implements AuthorService {
     @Autowired
     private AuthorMapper authorMapper;
 
+    @Autowired
+    private AuthorNoBooksMapper authorNoBooksMapper;
+
     @Override
     public List<AuthorNoBooksDTO> findAllWithoutBooks() {
-        return authorMapper.toAuthorNoBooksDTO(authorRepository.findAll());
+        return authorNoBooksMapper.toAuthorNoBooksDTO(authorRepository.findAll());
     }
 
     @Override
@@ -29,8 +35,18 @@ public class AuthorServiceImpl implements AuthorService {
         author.setFirstName(authorNoBooksDTO.getFirstName());
         author.setLastName(authorNoBooksDTO.getLastName());
 
-        author =  authorRepository.save(author);
+        author = authorRepository.save(author);
 
-        return authorMapper.toAuthorNoBooksDTO(author);
+        return authorNoBooksMapper.toAuthorNoBooksDTO(author);
+    }
+
+    @Override
+    public AuthorDTO findAuthorAndBooks(String authorUuid) {
+        Author author = authorRepository
+                .findOneByUuid(authorUuid);
+        if (author == null) {
+            throw new AuthorNotFoundException(authorUuid);
+        }
+        return authorMapper.toAuthorDTO(author);
     }
 }

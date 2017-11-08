@@ -1,6 +1,6 @@
 package com.github.xenteros.mapper;
 
-import com.github.xenteros.dto.AuthorNoBooksDTO;
+import com.github.xenteros.dto.AuthorDTO;
 import com.github.xenteros.model.Author;
 import org.mapstruct.Mapper;
 import org.mapstruct.ReportingPolicy;
@@ -8,9 +8,11 @@ import org.mapstruct.ReportingPolicy;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = "spring", uses = {BookMapper.class}
+        , unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface AuthorMapper {
 
-    AuthorNoBooksDTO toAuthorNoBooksDTO(Author author);
-    List<AuthorNoBooksDTO> toAuthorNoBooksDTO(Collection<Author> authors);
+    AuthorDTO toAuthorDTO(Author author);
+
+    List<AuthorDTO> toAuthorDTO(Collection<Author> author);
 }

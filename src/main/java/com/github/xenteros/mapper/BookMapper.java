@@ -8,7 +8,7 @@ import org.mapstruct.ReportingPolicy;
 import java.util.Collection;
 import java.util.List;
 
-@Mapper(componentModel = "spring",uses = {AuthorMapper.class},unmappedTargetPolicy = ReportingPolicy.ERROR)
+@Mapper(componentModel = "spring",uses = {AuthorNoBooksMapper.class},unmappedTargetPolicy = ReportingPolicy.ERROR)
 public interface BookMapper {
 
     BookDTO toBookDTO(Book book);

@@ -1,15 +1,13 @@
 package com.github.xenteros.model;
 
-import javax.persistence.MappedSuperclass;
-import javax.persistence.PrePersist;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 @MappedSuperclass
 public class BaseEntity {
 
+    @Column(unique = true)
     private String uuid = UUID.randomUUID().toString();
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
